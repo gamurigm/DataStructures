@@ -3,34 +3,37 @@
 #include "Cola.h"    
 
 int main() {
-    
     Cola<int> cola_enteros;
 
-    cola_enteros.encolar(10);
-    cola_enteros.encolar(20);
-    cola_enteros.encolar(30);
-    cola_enteros.encolar(3);
-	cola_enteros.encolar(0);
-	cola_enteros.encolar(5);
-	cola_enteros.encolar(7);
-	cola_enteros.encolar(80);
+    bool ok = false;
+    bool resp;
+    size_t N;
+    int X;
 
+    // Crear la cola
+    cola_enteros.Crear_cola(ok);
+    std::cout << "Cola creada. ¿Está vacía? " << (resp ? "Sí" : "No") << std::endl;
 
-    std::cout << " Cardinalidad:  " << cola_enteros.devolverTamanio() << std::endl;
+    // Encolar valores
+    cola_enteros.Queue(10, ok);
+    cola_enteros.Queue(20, ok);
+    cola_enteros.Queue(30, ok);
 
-    int frente = cola_enteros.frente();
-    std::cout << "Frente de la cola: " << frente << std::endl;
-  
-    cola_enteros.desencolar();
-    cola_enteros.desencolar();
-    cola_enteros.desencolar();
-    cola_enteros.desencolar();
-    cola_enteros.desencolar();
-    cola_enteros.devolverTamanio();
-    
-    std::cout << "Elemento desencolado. Nuevo frente: " << cola_enteros.frente() << std::endl;
+    // Mostrar el tamaño de la cola
+    cola_enteros.Tamanio(N);
+    std::cout << "Tamaño de la cola: " << N << std::endl;
 
+    // Mostrar el frente de la cola
+    try {
+        cola_enteros.Dequeue(X, ok);
+        std::cout << "Elemento desencolado: " << X << ". Nuevo frente: " << cola_enteros.frente() << std::endl;
+    } catch (const std::runtime_error& e) {
+        std::cerr << e.what() << std::endl;
+    }
 
+    // Limpiar la cola
+    cola_enteros.Borrar_cola(ok);
+    std::cout << "Cola limpiada. ¿Está vacía? " << (cola_enteros.estaVacia() ? "Sí" : "No") << std::endl;
 
     return 0;
 }

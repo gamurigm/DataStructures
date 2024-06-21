@@ -15,10 +15,7 @@ public:
     Cola() : head(nullptr), tail(nullptr), size(0) {}
 
     ~Cola() {
-    	
         limpiar();
-        
-        
     }
 
     void encolar(const T& valor) {
@@ -33,7 +30,6 @@ public:
     }
 
     void desencolar() {
-        
         if (estaVacia()) {
             throw std::runtime_error("La cola está vacía. No se puede desencolar.");
         }
@@ -58,9 +54,7 @@ public:
     }
 
     void limpiar() {
-       std::cout << "\nDestruyendo Nodos...!\n";
         while (!estaVacia()) {
-        	
             desencolar();
         }
     }
@@ -75,16 +69,50 @@ public:
     }
 
     bool estaLlena() const {
-        return false; 
+        return false; // En una cola basada en lista enlazada, nunca está llena
     }
 
     size_t devolverTamanio() const {
-        return size; 
+        return size; // Retorna el tamaño actual de la cola
     }
-    
-    int devolverCardinalidad(){
-		return 0;
-	}
+
+    // Funciones adicionales para operar sobre la cola
+    void Crear_cola(bool& ok) {
+        limpiar();
+        ok = true;
+    }
+
+    void Borrar_cola(bool& ok) {
+        limpiar();
+        ok = true;
+    }
+
+    void Vacia(bool& resp) {
+        resp = estaVacia();
+    }
+
+    void Llena(bool& resp) {
+        resp = estaLlena(); // En este caso, siempre devuelve false
+    }
+
+    void Queue(const T& X, bool& resp) {
+        encolar(X);
+        resp = true;
+    }
+
+    void Dequeue(T& X, bool& resp) {
+        if (estaVacia()) {
+            resp = false;
+        } else {
+            X = frente();
+            desencolar();
+            resp = true;
+        }
+    }
+
+    void Tamanio(size_t& N) {
+        N = devolverTamanio();
+    }
 
 private:
     Node<T>* head;
