@@ -39,13 +39,14 @@ struct Cliente {
 };
 
 std::ostream& operator<<(std::ostream& os, const Cliente& cliente) {
-    os << std::left << std::setw(20) << "Nombre: " << std::setw(20) << cliente.nombre << std::endl
-       << std::left << std::setw(20) << "Número de cuenta: " << std::setw(20) << cliente.numeroCuenta << std::endl
-       << std::left << std::setw(20) << "Tipo: " << std::setw(20) << (cliente.esDeposito ? "Depósito" : "Retiro") << std::endl
-       << std::left << std::setw(20) << "Monto: $" << std::setw(20) << std::fixed << std::setprecision(2) << cliente.monto;
+    os << "        Nombre: " << cliente.nombre << ", Número de cuenta: " << cliente.numeroCuenta
+       << ", Tipo: " << (cliente.esDeposito ? "Depósito" : "Retiro")
+       << ", Monto: $" << std::fixed << std::setprecision(2);
     
     if (!cliente.esDeposito) {
-        os << " (" << cliente.monto << ")";
+        os << "(" << cliente.monto << ")";
+    } else {
+        os << cliente.monto;
     }
     
     os << std::endl;
