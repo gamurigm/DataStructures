@@ -73,6 +73,7 @@ public:
             T valor;
             desencolar(valor, resp);
         }
+       
     }
 
     bool estaLlena() const {
@@ -112,4 +113,3 @@ private:
 };
 
 #endif // COLA_H
-

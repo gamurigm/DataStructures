@@ -10,12 +10,16 @@ void simularTransacciones(Cola<Cliente>& colaTransacciones, double& balanceTotal
 void ingresarTransaccionManualmente(Cola<Cliente>& colaTransacciones, double& balanceTotal, double& totalTransacciones);
 void mostrarTransacciones(Cola<Cliente>& colaTransacciones);
 void mostrarTotales(double balanceTotal, double totalTransacciones);
+void restablecer();
+
+    double balanceTotal = 100000;    // Balance inicial
+	double totalTransacciones = 0.0;
+
 
 int main() {
     Cola<Cliente> colaTransacciones;
-    double balanceTotal = 100000;    // Balance inicial
-    double totalTransacciones = 0.0;
-
+  
+    
     cargarTransacciones(colaTransacciones);
     cargarBalanceDesdeJSON(balanceTotal, totalTransacciones); // Cargar el balance desde JSON
 
@@ -23,8 +27,8 @@ int main() {
 
     do {
         std::cout << "\n--- MENU ---" << std::endl;
-        std::cout << "1. Simular transacciones automáticamente" << std::endl;
-        std::cout << "2. Ingresar transacción manualmente" << std::endl;
+        std::cout << "1. Simular transacciones automaticamente" << std::endl;
+        std::cout << "2. Ingresar transaccion manualmente" << std::endl;
         std::cout << "3. Mostrar transacciones en cola y tamaño actual" << std::endl;
         std::cout << "4. Procesar transacción de la cola" << std::endl;
         std::cout << "5. Mostrar balance y total de transacciones" << std::endl;
@@ -51,7 +55,7 @@ int main() {
                     if (resp) {
                         std::cout << "Transacción desencolada:";
                         std::cout << "| Nombre: " << cliente.nombre << "    | # Cuenta: " << cliente.numeroCuenta
-                                  << ", Tipo: " << (cliente.esDeposito ? "Depósito" : "Retiro")
+                                  << ", Tipo: " << (cliente.esDeposito ? "Deposito" : "Retiro")
                                   << ", Monto: $" << std::fixed << std::setprecision(2) << cliente.monto << std::endl;
 
                         if (cliente.esDeposito) {
@@ -74,7 +78,7 @@ int main() {
                         std::cout << "Error al desencolar la transacción." << std::endl;
                     }
                 } else {
-                    std::cout << "La cola de transacciones está vacía." << std::endl;
+                    std::cout << "\nLa cola de transacciones esta vacia." << std::endl;
                 }
                 break;
             case 5:
@@ -91,6 +95,9 @@ int main() {
 					   {
 				            std::cout << "Operación de limpieza cancelada." << std::endl;
 				       }
+				       restablecer();
+				       std::cout << "Balance restaurado a $" << balanceTotal << " y total de transacciones a $" << totalTransacciones << std::endl;
+					                   break;
 			    }
 				    break;
 
@@ -214,4 +221,9 @@ void mostrarTransacciones(Cola<Cliente>& colaTransacciones) {
 void mostrarTotales(double balanceTotal, double totalTransacciones) {
     std::cout << "\nBalance total en el banco: $" << std::fixed << std::setprecision(2) << balanceTotal << std::endl;
     std::cout << "Total de transacciones acumuladas: $" << std::fixed << std::setprecision(2) << totalTransacciones << std::endl;
+}
+
+void restablecer() {
+    balanceTotal = 100000.0;
+    totalTransacciones = 0.0;
 }
