@@ -67,7 +67,6 @@ void guardarTransaccion(const Cliente& cliente, int id) {
 }
 
 
-
 void cargarTransacciones(Cola<Cliente>& colaTransacciones) {
     DIR* dir;
     struct dirent* ent;
@@ -122,5 +121,36 @@ void cargarTransacciones(Cola<Cliente>& colaTransacciones) {
     }
 }
 
-#endif // MANEJOJSON_H
 
+void guardarBalanceEnJSON(double balanceTotal, double totalTransacciones) {
+    json data;
+    data["balanceTotal"] = balanceTotal;
+    data["totalTransacciones"] = totalTransacciones;
+
+    std::ofstream archivo("balance.json");
+    if (archivo.is_open()) {
+        archivo << std::setw(4) << data << std::endl; // Escribir JSON con formato indentado
+        archivo.close();
+        std::cout << "Balance guardado en balance.json" << std::endl;
+    } else {
+        std::cerr << "No se pudo abrir el archivo balance.json para guardar el balance." << std::endl;
+    }
+}
+
+
+void cargarBalanceDesdeJSON(double& balanceTotal, double& totalTransacciones) {
+    std::ifstream archivo("balance.json");
+    if (archivo.is_open()) {
+        json data;
+        archivo >> data;
+        balanceTotal = data["balanceTotal"];
+        totalTransacciones = data["totalTransacciones"];
+        archivo.close();
+        std::cout << "Balance cargado desde balance.json" << std::endl;
+    } else {
+        std::cerr << "No se pudo abrir el archivo balance.json para cargar el balance." << std::endl;
+    }
+}
+
+
+#endif // MANEJOJSON_H
