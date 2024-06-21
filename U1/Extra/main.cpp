@@ -5,7 +5,7 @@
 #include "Cliente.h"
 #include "ManejoJSON.h"
 
-// Declaraciones de funciones
+
 void simularTransacciones(Cola<Cliente>& colaTransacciones, double& balanceTotal, double& totalTransacciones);
 void ingresarTransaccionManualmente(Cola<Cliente>& colaTransacciones, double& balanceTotal, double& totalTransacciones);
 void mostrarTransacciones(Cola<Cliente>& colaTransacciones);
@@ -83,15 +83,14 @@ int main() {
                 std::cout << "Saliendo del programa..." << std::endl;
                 break;
             default:
-                std::cout << "Opción inválida. Intente de nuevo." << std::endl;
+                std::cout << "Opción invalida. Intente de nuevo." << std::endl;
                 break;
         }
 
     } while (opcion != 0);
 
-    // Mostrar información final
+    std::cout << "Balance: $" << std::fixed << std::setprecision(2) << balanceTotal << std::endl;
     std::cout << "\nTotal Transacciones: $" << std::fixed << std::setprecision(2) << totalTransacciones << std::endl;
-    std::cout << "Balance total en el banco: $" << std::fixed << std::setprecision(2) << balanceTotal << std::endl;
 
     return 0;
 }
@@ -138,7 +137,7 @@ void simularTransacciones(Cola<Cliente>& colaTransacciones, double& balanceTotal
         }
     }
 
-    // Guardar balance y transacciones en JSON después de simular
+    //JSON después de simular
     guardarBalanceEnJSON(balanceTotal, totalTransacciones);
 }
 
@@ -152,7 +151,7 @@ void ingresarTransaccionManualmente(Cola<Cliente>& colaTransacciones, double& ba
     std::cin >> nombre;
     std::cout << "Ingrese el número de cuenta: ";
     std::cin >> numeroCuenta;
-    std::cout << "Es un depósito? (1 para sí, 0 para no): ";
+    std::cout << "Es un depósito? (1 para si, 0 para no): ";
     std::cin >> esDeposito;
     std::cout << "Ingrese el monto: ";
     std::cin >> monto;
@@ -183,7 +182,7 @@ void ingresarTransaccionManualmente(Cola<Cliente>& colaTransacciones, double& ba
         std::cout << "Cola llena! No se pudo realizar la transacción." << std::endl;
     }
 
-    // Guardar balance y transacciones en JSON después de ingresar manualmente
+    //JSON después de ingresar manualmente
     guardarBalanceEnJSON(balanceTotal, totalTransacciones);
 }
 

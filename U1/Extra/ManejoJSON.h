@@ -5,7 +5,7 @@
 #include <fstream>
 #include <string>
 #include <iomanip>
-#include <dirent.h>   // Para manejo de directorios
+#include <dirent.h>   
 #include <sys/stat.h> // Para verificar y crear directorios
 #include "nlohmann/json.hpp"
 #include "Cola.h"     
