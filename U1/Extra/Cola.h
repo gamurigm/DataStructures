@@ -84,7 +84,7 @@ public:
 	        if (estaVacia()) {
 	            std::cout << "Empty." << std::endl;
 	        } else {
-	            std::cout << "\n\t\tementos en la cola:" << std::endl;
+	            std::cout << "\n\t\tElmentos en la cola: "  << std::endl;
 	            Node<T>* temp = head;
 	            while (temp != nullptr) {
 	                std::cout << temp->data << " ";

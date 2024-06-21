@@ -57,6 +57,8 @@ std::ostream& operator<<(std::ostream& os, const Cliente& cliente) {
 
 void simularTransacciones(Cola<Cliente>& colaTransacciones, double& balanceTotal, double& totalTransacciones) {
     
+    std::cout << "Balance Inicial: " << balanceTotal << "\n";
+    
 	srand(time(0)); 
 
     for (int i = 0; i < 10; ++i) {
@@ -80,8 +82,8 @@ void simularTransacciones(Cola<Cliente>& colaTransacciones, double& balanceTotal
 
         colaTransacciones.encolar(cliente, resp);
         if (resp) {
-            std::cout << "Transacción encolada: ";
-            std::cout << "| Nombre: " << cliente.nombre <<  "    | N° Cuenta: " << cliente.numeroCuenta
+            std::cout << "Transacción encolada:";
+            std::cout << "| Nombre: " << cliente.nombre <<  "    | # Cuenta: " << cliente.numeroCuenta
                       << ", Tipo: " << (cliente.esDeposito ? "Deposito" : "Retiro")
                       << ", Monto: $" << std::fixed << std::setprecision(2) << cliente.monto << std::endl;
         } else {
