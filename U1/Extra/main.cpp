@@ -81,11 +81,11 @@ void simularTransacciones(Cola<Cliente>& colaTransacciones, double& balanceTotal
         colaTransacciones.encolar(cliente, resp);
         if (resp) {
             std::cout << "Transacción encolada: ";
-            std::cout << "| Nombre: " << cliente.nombre <<  "    | Número de cuenta: " << cliente.numeroCuenta
-                      << ", Tipo: " << (cliente.esDeposito ? "Depósito" : "Retiro")
+            std::cout << "| Nombre: " << cliente.nombre <<  "    | N° Cuenta: " << cliente.numeroCuenta
+                      << ", Tipo: " << (cliente.esDeposito ? "Deposito" : "Retiro")
                       << ", Monto: $" << std::fixed << std::setprecision(2) << cliente.monto << std::endl;
         } else {
-            std::cout << "Cola llena. No se pudo realizar la transacción." << std::endl;
+            std::cout << "Cola llena! No se pudo realizar la transaccion." << std::endl;
         }
     }
 }
