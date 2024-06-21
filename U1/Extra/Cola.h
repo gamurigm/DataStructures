@@ -37,7 +37,7 @@ public:
 
     void desencolar(T& valor, bool& resp) {
         if (estaVacia()) {
-            resp = false; // No se puede desencolar si la cola está vacía
+            resp = false; 
         } else {
             Node<T>* temp = head;
             valor = temp->data;
@@ -53,7 +53,7 @@ public:
 
     T frente(bool& resp) const {
         if (estaVacia()) {
-            resp = false; // No hay elemento en el frente si la cola está vacía
+            resp = false; 
             throw std::runtime_error("La cola está vacía. No hay elemento en el frente.");
         }
         resp = true;
@@ -73,18 +73,18 @@ public:
     }
 
     bool estaLlena() const {
-        return false; // En una cola basada en lista enlazada, nunca está llena
+        return false; 
     }
 
     size_t devolverTamanio() const {
-        return size; // Retorna el tamaño actual de la cola
+        return size; 
     }
     
     void mostrar() const {
 	        if (estaVacia()) {
 	            std::cout << "Empty." << std::endl;
 	        } else {
-	            std::cout << "\nElementos en la cola:" << std::endl;
+	            std::cout << "\n\t\tementos en la cola:" << std::endl;
 	            Node<T>* temp = head;
 	            while (temp != nullptr) {
 	                std::cout << temp->data << " ";
@@ -97,10 +97,10 @@ public:
 private:
     Node<T>* head;
     Node<T>* tail;
-    size_t size; // Atributo para almacenar el tamaño actual de la cola
+    size_t size; //el tamaño actual 
 
     bool estaLlena(const Cola<T>& C) const {
-        return false; // En una cola basada en lista enlazada, nunca está llena
+        return false;
     }
 
     bool estaVacia(const Cola<T>& C) const {

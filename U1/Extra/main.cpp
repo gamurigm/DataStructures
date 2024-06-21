@@ -39,9 +39,10 @@ struct Cliente {
 };
 
 std::ostream& operator<<(std::ostream& os, const Cliente& cliente) {
-    os << "        Nombre: " << cliente.nombre << ", Número de cuenta: " << cliente.numeroCuenta
-       << ", Tipo: " << (cliente.esDeposito ? "Depósito" : "Retiro")
-       << ", Monto: $" << std::fixed << std::setprecision(2);
+    os << std::left << std::setw(20) << cliente.nombre
+       << std::left << std::setw(20) << cliente.numeroCuenta
+       << std::left << std::setw(10) << (cliente.esDeposito ? "Deposito" : "Retiro")
+       << std::right << std::setw(10) << std::fixed << std::setprecision(2);
     
     if (!cliente.esDeposito) {
         os << "(" << cliente.monto << ")";
