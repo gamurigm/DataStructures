@@ -226,4 +226,5 @@ void mostrarTotales(double balanceTotal, double totalTransacciones) {
 void restablecer() {
     balanceTotal = 100000.0;
     totalTransacciones = 0.0;
+    guardarBalanceEnJSON(balanceTotal, totalTransacciones);
 }
