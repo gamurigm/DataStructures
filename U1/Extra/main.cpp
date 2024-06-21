@@ -1,68 +1,37 @@
 #include <iostream>
 #include <ctime>
 #include <iomanip>
-#include "Cola.h" 
+#include "Cola.h"      
+#include "Cliente.h"   
+#include "ManejoJSON.h"
 
-struct Cliente;
-std::ostream& operator<<(std::ostream& os, const Cliente& cliente);
 void simularTransacciones(Cola<Cliente>& colaTransacciones, double& balanceTotal, double& totalTransacciones);
-
 
 int main() {
     
-	Cola<Cliente> colaTransacciones;
-	
-    double balanceTotal = 100000;    //Balance
+    Cola<Cliente> colaTransacciones;
+    
+    double balanceTotal = 100000;    // Balance inicial
     double totalTransacciones = 0.0; 
 
+    cargarTransacciones(colaTransacciones);    
     simularTransacciones(colaTransacciones, balanceTotal, totalTransacciones);
     
-	colaTransacciones.mostrar();
+    colaTransacciones.mostrar();
     std::cout << "\nTotal Tansacciones: $" << std::fixed << std::setprecision(2) << totalTransacciones << std::endl;
     std::cout << "Balance total en el banco: $" << std::fixed << std::setprecision(2) << balanceTotal << std::endl;
 
     return 0;
 }
 
-
-
-struct Cliente {
-    std::string nombre;
-    std::string numeroCuenta;
-    bool esDeposito;
-    double monto;
-
-    Cliente() : nombre(""), numeroCuenta(""), esDeposito(true), monto(0.0) {}
-
-    Cliente(const std::string& nombre, const std::string& numeroCuenta, bool esDeposito, double monto)
-        : nombre(nombre), numeroCuenta(numeroCuenta), esDeposito(esDeposito), monto(monto) {}
-};
-
-std::ostream& operator<<(std::ostream& os, const Cliente& cliente) {
-    os << std::left << std::setw(20) << cliente.nombre
-       << std::left << std::setw(20) << cliente.numeroCuenta
-       << std::left << std::setw(10) << (cliente.esDeposito ? "Deposito" : "Retiro")
-       << std::right << std::setw(10) << std::fixed << std::setprecision(2);
-    
-    if (!cliente.esDeposito) {
-        os << "(" << cliente.monto << ")";
-    } else {
-        os << cliente.monto;
-    }
-    
-    os << std::endl;
-    
-    return os;
-}
-
 void simularTransacciones(Cola<Cliente>& colaTransacciones, double& balanceTotal, double& totalTransacciones) {
     
-    std::cout << "Balance Inicial: " << balanceTotal << "\n";
+    std::cout << "Balance Inicial: $" << balanceTotal << std::endl;
     
-	srand(time(0)); 
+    srand(time(0)); 
 
     for (int i = 0; i < 10; ++i) {
-    	
+        
         bool resp;
         bool esDeposito = rand() % 2 == 0; 
 
@@ -80,6 +49,9 @@ void simularTransacciones(Cola<Cliente>& colaTransacciones, double& balanceTotal
             totalTransacciones -= cliente.monto; 
         }
 
+
+        guardarTransaccion(cliente, i + 1);
+
         colaTransacciones.encolar(cliente, resp);
         if (resp) {
             std::cout << "Transacción encolada:";
@@ -87,7 +59,7 @@ void simularTransacciones(Cola<Cliente>& colaTransacciones, double& balanceTotal
                       << ", Tipo: " << (cliente.esDeposito ? "Deposito" : "Retiro")
                       << ", Monto: $" << std::fixed << std::setprecision(2) << cliente.monto << std::endl;
         } else {
-            std::cout << "Cola llena! No se pudo realizar la transaccion." << std::endl;
+            std::cout << "Cola llena! No se pudo realizar la transacción." << std::endl;
         }
     }
 }

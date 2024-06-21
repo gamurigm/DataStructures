@@ -1,3 +1,6 @@
+#ifndef COLA_H
+#define COLA_H
+
 #include <iostream>
 #include <stdexcept> // Para std::runtime_error
 
@@ -108,4 +111,5 @@ private:
     }
 };
 
+#endif // COLA_H
 
