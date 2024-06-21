@@ -79,6 +79,20 @@ public:
     size_t devolverTamanio() const {
         return size; // Retorna el tamaño actual de la cola
     }
+    
+    void mostrar() const {
+	        if (estaVacia()) {
+	            std::cout << "Empty." << std::endl;
+	        } else {
+	            std::cout << "\nElementos en la cola:" << std::endl;
+	            Node<T>* temp = head;
+	            while (temp != nullptr) {
+	                std::cout << temp->data << " ";
+	                temp = temp->next;
+	            }
+	            std::cout << std::endl;
+	        }
+	    }      
 
 private:
     Node<T>* head;
