@@ -1,6 +1,6 @@
 {
-    "esDeposito": true,
-    "monto": 763.0,
+    "esDeposito": false,
+    "monto": 693.0,
     "nombre": "Cliente 2",
-    "numeroCuenta": "Cuenta-994"
+    "numeroCuenta": "Cuenta-861"
 }

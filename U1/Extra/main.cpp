@@ -28,6 +28,7 @@ int main() {
         std::cout << "3. Mostrar transacciones en cola y tamaño actual" << std::endl;
         std::cout << "4. Procesar transacción de la cola" << std::endl;
         std::cout << "5. Mostrar balance y total de transacciones" << std::endl;
+        std::cout << "6. Limpiar Cola" << std::endl;
         std::cout << "0. Salir" << std::endl;
         std::cout << "Ingrese su opción: ";
         std::cin >> opcion;
@@ -79,6 +80,20 @@ int main() {
             case 5:
                 mostrarTotales(balanceTotal, totalTransacciones);
                 break;
+            case 6:
+            	 {
+				    char confirmacion;
+				    std::cout << "¿Está seguro de que desea borrar la cola y eliminar todos los archivos JSON de transacciones? (s/n): ";
+				    std::cin >> confirmacion;
+				    if (confirmacion == 's' || confirmacion == 'S') {
+				           borrarCola(colaTransacciones, true);
+				       } else 
+					   {
+				            std::cout << "Operación de limpieza cancelada." << std::endl;
+				       }
+			    }
+				    break;
+
             case 0:
                 std::cout << "Saliendo del programa..." << std::endl;
                 break;
@@ -178,12 +193,17 @@ void ingresarTransaccionManualmente(Cola<Cliente>& colaTransacciones, double& ba
         std::cout << "| Nombre: " << cliente.nombre << "    | # Cuenta: " << cliente.numeroCuenta
                   << ", Tipo: " << (cliente.esDeposito ? "Depósito" : "Retiro")
                   << ", Monto: $" << std::fixed << std::setprecision(2) << cliente.monto << std::endl;
+                  
+                  guardarTransaccion(cliente, colaTransacciones.devolverTamanio());
+                  
+                  
     } else {
         std::cout << "Cola llena! No se pudo realizar la transacción." << std::endl;
     }
 
     //JSON después de ingresar manualmente
     guardarBalanceEnJSON(balanceTotal, totalTransacciones);
+
 }
 
 void mostrarTransacciones(Cola<Cliente>& colaTransacciones) {

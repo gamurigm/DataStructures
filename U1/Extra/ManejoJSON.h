@@ -153,4 +153,37 @@ void cargarBalanceDesdeJSON(double& balanceTotal, double& totalTransacciones) {
 }
 
 
+void eliminarArchivosJSON() {
+    DIR* dir;
+    struct dirent* ent;
+
+    if ((dir = opendir(CARPETA_TRANSACCIONES.c_str())) != NULL) {
+        while ((ent = readdir(dir)) != NULL) {
+            std::string nombreArchivo = ent->d_name;
+            if (nombreArchivo.find(".json") != std::string::npos) {
+                std::string rutaArchivo = CARPETA_TRANSACCIONES + "/" + nombreArchivo;
+                if (remove(rutaArchivo.c_str()) != 0) {
+                    std::cerr << "Error al intentar eliminar el archivo: " << rutaArchivo << std::endl;
+                }
+            }
+        }
+        closedir(dir);
+    } else {
+        std::cerr << "No se pudo abrir el directorio: " << CARPETA_TRANSACCIONES << std::endl;
+    }
+
+    std::cout << "Se han eliminado los archivos JSON de transacciones." << std::endl;
+}
+
+
+void borrarCola(Cola<Cliente>& cola, bool ok) {
+    if (ok) {
+        eliminarArchivosJSON();
+        cola.limpiar(); // Limpia la cola
+    } else {
+        std::cout << "Operación de limpieza cancelada." << std::endl;
+    }
+}
+
+
 #endif // MANEJOJSON_H
