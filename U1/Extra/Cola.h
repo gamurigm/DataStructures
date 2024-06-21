@@ -18,34 +18,45 @@ public:
         limpiar();
     }
 
-    void encolar(const T& valor) {
+    void encolar(const T& valor, bool& resp) {
         Node<T>* newNode = new Node<T>(valor);
-        if (estaVacia()) {
-            head = tail = newNode;
+        if (estaLlena()) {
+            resp = false; // No se puede encolar si la cola está llena
+            delete newNode;
         } else {
-            tail->next = newNode;
-            tail = newNode;
-        }
-        size++;
-    }
-
-    void desencolar() {
-        if (estaVacia()) {
-            throw std::runtime_error("La cola está vacía. No se puede desencolar.");
-        }
-        Node<T>* temp = head;
-        head = head->next;
-        delete temp;
-        size--;
-        if (!head) {
-            tail = nullptr;
+            if (estaVacia()) {
+                head = tail = newNode;
+            } else {
+                tail->next = newNode;
+                tail = newNode;
+            }
+            size++;
+            resp = true;
         }
     }
 
-    T frente() const {
+    void desencolar(T& valor, bool& resp) {
         if (estaVacia()) {
+            resp = false; // No se puede desencolar si la cola está vacía
+        } else {
+            Node<T>* temp = head;
+            valor = temp->data;
+            head = head->next;
+            delete temp;
+            size--;
+            if (!head) {
+                tail = nullptr;
+            }
+            resp = true;
+        }
+    }
+
+    T frente(bool& resp) const {
+        if (estaVacia()) {
+            resp = false; // No hay elemento en el frente si la cola está vacía
             throw std::runtime_error("La cola está vacía. No hay elemento en el frente.");
         }
+        resp = true;
         return head->data;
     }
 
@@ -55,17 +66,10 @@ public:
 
     void limpiar() {
         while (!estaVacia()) {
-            desencolar();
+            bool resp;
+            T valor;
+            desencolar(valor, resp);
         }
-    }
-
-    void crear() {
-        limpiar(); // Simplemente limpia la cola existente
-    }
-
-    bool borrar() {
-        limpiar();
-        return estaVacia(); // Retorna true si la cola quedó vacía después de borrar
     }
 
     bool estaLlena() const {
@@ -76,46 +80,18 @@ public:
         return size; // Retorna el tamaño actual de la cola
     }
 
-    // Funciones adicionales para operar sobre la cola
-    void Crear_cola(bool& ok) {
-        limpiar();
-        ok = true;
-    }
-
-    void Borrar_cola(bool& ok) {
-        limpiar();
-        ok = true;
-    }
-
-    void Vacia(bool& resp) {
-        resp = estaVacia();
-    }
-
-    void Llena(bool& resp) {
-        resp = estaLlena(); // En este caso, siempre devuelve false
-    }
-
-    void Queue(const T& X, bool& resp) {
-        encolar(X);
-        resp = true;
-    }
-
-    void Dequeue(T& X, bool& resp) {
-        if (estaVacia()) {
-            resp = false;
-        } else {
-            X = frente();
-            desencolar();
-            resp = true;
-        }
-    }
-
-    void Tamanio(size_t& N) {
-        N = devolverTamanio();
-    }
-
 private:
     Node<T>* head;
     Node<T>* tail;
-    size_t size;
+    size_t size; // Atributo para almacenar el tamaño actual de la cola
+
+    bool estaLlena(const Cola<T>& C) const {
+        return false; // En una cola basada en lista enlazada, nunca está llena
+    }
+
+    bool estaVacia(const Cola<T>& C) const {
+        return C.head == nullptr;
+    }
 };
+
+
