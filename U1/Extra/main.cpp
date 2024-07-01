@@ -34,7 +34,7 @@ int main() {
         std::cout << "5. Mostrar balance y total de transacciones" << std::endl;
         std::cout << "6. Limpiar Cola" << std::endl;
         std::cout << "0. Salir" << std::endl;
-        std::cout << "Ingrese su opción: ";
+        std::cout << "Ingrese su opcion: ";
         std::cin >> opcion;
 
         switch (opcion) {
@@ -72,7 +72,6 @@ int main() {
                             }
                         }
 
-                        // Guardar balance y transacciones en JSON después de procesar
                         guardarBalanceEnJSON(balanceTotal, totalTransacciones);
                     } else {
                         std::cout << "Error al desencolar la transacción." << std::endl;
@@ -159,7 +158,6 @@ void simularTransacciones(Cola<Cliente>& colaTransacciones, double& balanceTotal
         }
     }
 
-    //JSON después de simular
     guardarBalanceEnJSON(balanceTotal, totalTransacciones);
 }
 
@@ -208,7 +206,6 @@ void ingresarTransaccionManualmente(Cola<Cliente>& colaTransacciones, double& ba
         std::cout << "Cola llena! No se pudo realizar la transacción." << std::endl;
     }
 
-    //JSON después de ingresar manualmente
     guardarBalanceEnJSON(balanceTotal, totalTransacciones);
 
 }
